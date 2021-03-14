@@ -1,10 +1,19 @@
 .mat-form-field {
   display: inline-block;
-  width: 300px;
-  
+  width: 90%;
 }
 
 .main-content {
   text-align: center;
   margin: 10%;
+}
+
+mat-card button {
+  width: 90%;
+}
+
+mat-card {
+  width: 350px;
+  margin: auto;
+  padding-top: 50px;
 }

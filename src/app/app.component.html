@@ -23,7 +23,7 @@
           <button mat-button
                   matSuffix
                   type="button"
-                  (click)="togglePasswordVisibility()">Show</button>
+                  (click)="togglePasswordVisibility()"> {{ passwordStatus }} </button>
         </mat-form-field>
         <br>
         <mat-form-field>
@@ -42,6 +42,9 @@
                 name="email">
         </mat-form-field>
         <br>
+        <mat-card-actions>
+          <button mat-raised-button color="primary">Sign up</button>
+        </mat-card-actions>
       </form>
     </mat-card-content>
   </mat-card>

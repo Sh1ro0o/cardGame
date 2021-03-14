@@ -11,15 +11,21 @@ export class AppComponent {
   ApiUrlEndpoint = "http://localhost:3000/users/user";
   FrontendUrlEndpoint = "http://localhost:4200/";
   passwordType = "password";
-  rePasswordType = "password"
+  passwordStatus = "Show"
 
   constructor(private http: HttpClient) {
   }
 
   togglePasswordVisibility() {
-    if(this.passwordType === "password")
+    if(this.passwordType === "password") {
       this.passwordType = "text";
-    else
+      this.passwordStatus = "Hide";
+      console.log(this.passwordStatus);
+    }
+    else {
       this.passwordType = "password";
+      this.passwordStatus = "Show";
+      console.log(this.passwordStatus);
+    }
   }
 }
