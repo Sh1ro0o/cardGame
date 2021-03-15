@@ -40,6 +40,7 @@ export class AppComponent {
 
     console.log(registeredUser);
 
+    //test
     //this.http.post(this.RegistrationUrlEndpoint, )
   }
 
