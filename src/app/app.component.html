@@ -4,13 +4,13 @@
       Registration
     </mat-card-title>
     <mat-card-content>
-      <form [action]="ApiUrlEndpoint" method='POST'>
+      <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
         <mat-form-field>
           <mat-label>Username</mat-label>
           <input matInput
                 type="text"
                 placeholder="Username"
-                name="username">
+                formControlName="username">
           <img matSuffix>
         </mat-form-field>
         <br>
@@ -19,7 +19,7 @@
           <input matInput
                 [type]=passwordType
                 placeholder="Password"
-                name="password">
+                formControlName="password">
           <button mat-button
                   matSuffix
                   type="button"
@@ -31,7 +31,7 @@
           <input matInput
                 [type]=passwordType
                 placeholder="Re-password"
-                name="re-password">
+                formControlName="rePassword">
         </mat-form-field>
         <br>
         <mat-form-field>
@@ -39,11 +39,11 @@
           <input matInput
                 type="email"
                 placeholder="E-mail"
-                name="email">
+                formControlName="email">
         </mat-form-field>
         <br>
         <mat-card-actions>
-          <button mat-raised-button color="primary">Sign up</button>
+          <button mat-raised-button color="primary" type="submit">Sign up</button>
         </mat-card-actions>
       </form>
     </mat-card-content>
