@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { User } from './interface/user';
 import { Observable, throwError } from 'rxjs';
 
@@ -20,11 +20,13 @@ export class AppComponent {
   passwordStatus = "Show"
 
   //form group
+  //TO-DO: validatorji (create validator that compares password with repassword, create validator that checks email structure)
+  //TO-DO: api call to check if email is valid
   registrationForm = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl(''),
-    rePassword: new FormControl(''),
-    email: new FormControl(''),
+    username: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required, Validators.min(8), Validators.max(48)]),
+    rePassword: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required]),
   });
 
   constructor(private http: HttpClient) {
@@ -35,8 +37,6 @@ export class AppComponent {
   }
 
   onSubmit() : void {
-
-
     console.warn(this.registrationForm.value);
 
     let registeredUser = new User(this.registrationForm.get('username').value,
