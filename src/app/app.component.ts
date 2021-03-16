@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { User } from './interface/user';
+import { Observable, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,7 @@ import { User } from './interface/user';
 })
 export class AppComponent {
   //endpoints
-  RegistrationUrlEndpoint = "http://localhost:3000/users/user";
+  RegistrationUrlEndpoint = "/api/users/user";
   FrontendUrlEndpoint = "http://localhost:4200/";
 
   //registration logic
@@ -29,8 +30,13 @@ export class AppComponent {
   constructor(private http: HttpClient) {
   }
 
+  addUser(user: User): Observable<User> {
+    return this.http.post<User>(this.RegistrationUrlEndpoint, user);
+  }
 
   onSubmit() : void {
+
+
     console.warn(this.registrationForm.value);
 
     let registeredUser = new User(this.registrationForm.get('username').value,
@@ -38,10 +44,13 @@ export class AppComponent {
     this.registrationForm.get('rePassword').value,
     this.registrationForm.get('email').value);
 
+    //console logs created class User
     console.log(registeredUser);
 
-    //test
-    //this.http.post(this.RegistrationUrlEndpoint, )
+    //sends with post
+    this.addUser(registeredUser).subscribe((user) => {
+      console.log(user);
+    })
   }
 
   togglePasswordVisibility() : void{
