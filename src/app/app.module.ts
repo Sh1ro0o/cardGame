@@ -10,6 +10,7 @@ import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RegistrationService } from './registration.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     MatRadioModule
   ],
-  providers: [],
+  providers: [ RegistrationService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

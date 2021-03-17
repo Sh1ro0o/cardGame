@@ -33,6 +33,8 @@
                 placeholder="Re-password"
                 formControlName="rePassword">
         </mat-form-field>
+        <small *ngIf="registrationForm.errors?.match"
+               class="text-error">Passwords do not match!</small>
         <br>
         <mat-form-field>
           <mat-label>E-mail</mat-label>
