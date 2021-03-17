@@ -9,6 +9,7 @@ import { Observable, throwError } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
   //endpoints
   RegistrationUrlEndpoint = "/api/users/user";
@@ -30,6 +31,7 @@ export class AppComponent {
   });
 
   constructor(private http: HttpClient) {
+    //nothing
   }
 
   addUser(user: User): Observable<User> {

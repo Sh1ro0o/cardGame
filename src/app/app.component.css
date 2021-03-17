@@ -17,3 +17,20 @@ mat-card {
   margin: auto;
   padding-top: 50px;
 }
+
+/* DARK - MODE
+
+*/
+/*override the default color for placeholders*/
+/*
+.mat-card-registration mat-label{
+  color:white;
+}
+
+.mat-card-registration .mat-input-element::placeholder {
+  color: white;
+}
+
+.mat-form-field.mat-warn .mat-input-element, .mat-form-field-invalid .mat-input-element {
+  caret-color: white;
+}*/
