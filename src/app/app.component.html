@@ -23,11 +23,11 @@
                 [type]=passwordType
                 placeholder="Password"
                 formControlName="password"
+                (blur)="displayPasswordRequired = true"
                 (input)="onPasswordChange($event.target.value)">
           <button mat-button
                   matSuffix
                   type="button"
-                  (blur)="displayPasswordRequired = true"
                   (click)="togglePasswordVisibility()"> {{ passwordStatus }} </button>
         </mat-form-field>
         <mat-card class="passwordTasks" *ngIf="displayPasswordTasks">
@@ -67,7 +67,7 @@
             </tr>
           </table>
         </mat-card>
-        <small *ngIf="(registrationForm.controls['password'].hasError('required') && displayUsernameRequired === true)"
+        <small *ngIf="(registrationForm.controls['password'].hasError('required') && displayPasswordRequired === true)"
                 class="text-error">Password is required!</small>
         <br>
         <mat-form-field>
@@ -85,9 +85,12 @@
           <input matInput
                 type="email"
                 placeholder="E-mail"
-                formControlName="email">
+                formControlName="email"
+                (blur)="displayEmailRequired = true">
         </mat-form-field>
         <br>
+        <small *ngIf="(registrationForm.controls['password'].hasError('required') && displayEmailRequired === true)"
+                class="text-error">Email is required!</small>
         <mat-card-actions>
           <button mat-raised-button color="primary" type="submit">Sign up</button>
         </mat-card-actions>
