@@ -1,4 +1,4 @@
-import { FormControl, FormGroup, ValidatorFn } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 
 export function passwordRepeatMatchValidator(fg: FormGroup) : {[key: string]: any} | null {
   const password = fg.get('password').value;

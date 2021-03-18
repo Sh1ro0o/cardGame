@@ -8,14 +8,36 @@
   margin: 10%;
 }
 
-mat-card button {
+.mat-card-registration button {
   width: 90%;
 }
 
-mat-card {
+.mat-card-registration {
   width: 350px;
   margin: auto;
   padding-top: 50px;
+}
+
+.passwordTasks {
+  background-color: rgb(33,150,243);
+  margin-right: 3%;
+  margin-left: 3%;
+  color: white;
+  text-align: left !important;
+}
+
+.check-mark-green {
+  font-weight: bold;
+  color: rgb(40, 184, 11);
+}
+
+.check-mark-red {
+  font-weight: bold;
+  color: red;
+}
+
+.task-padding {
+  padding-left: 10px;
 }
 
 /* DARK - MODE

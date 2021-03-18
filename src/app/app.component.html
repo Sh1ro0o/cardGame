@@ -10,21 +10,65 @@
           <input matInput
                 type="text"
                 placeholder="Username"
-                formControlName="username">
+                formControlName="username"
+                (blur)="displayUsernameRequired = true">
           <img matSuffix>
         </mat-form-field>
+        <small *ngIf="(registrationForm.controls['username'].hasError('required') && displayUsernameRequired === true)"
+                class="text-error">Username is required!</small>
         <br>
         <mat-form-field>
           <mat-label>Password</mat-label>
           <input matInput
                 [type]=passwordType
                 placeholder="Password"
-                formControlName="password">
+                formControlName="password"
+                (input)="onPasswordChange($event.target.value)">
           <button mat-button
                   matSuffix
                   type="button"
+                  (blur)="displayPasswordRequired = true"
                   (click)="togglePasswordVisibility()"> {{ passwordStatus }} </button>
         </mat-form-field>
+        <mat-card class="passwordTasks" *ngIf="displayPasswordTasks">
+          <table mat-table>
+            <tr mat-row>
+              <td mat-cell [ngClass]="(registrationForm.controls['password'].hasError('minlength') || registrationForm.controls['password'].hasError('maxlength'))
+                                      ? 'check-mark-red' : 'check-mark-green'">
+                <small>✓</small>
+              </td>
+              <td mat-cell>
+                <small class="task-padding"> Password must be between 8 - 48 characters</small>
+              </td>
+            </tr>
+            <tr mat-row>
+              <td mat-cell [ngClass]="(registrationForm.controls['password'].hasError('upperCase')) ? 'check-mark-red' : 'check-mark-green'">
+                <small>✓</small>
+              </td>
+              <td mat-cell>
+                <small class="task-padding">At least 1 upper case character</small>
+              </td>
+            </tr>
+            <tr mat-row>
+              <td mat-cell [ngClass]="(registrationForm.controls['password'].hasError('lowerCase')) ? 'check-mark-red' : 'check-mark-green'">
+                <small>✓</small>
+              </td>
+              <td mat-cell>
+                <small class="task-padding">At least 1 lower case character</small>
+              </td>
+            </tr>
+            <tr mat-row>
+              <td mat-cell [ngClass]="(registrationForm.controls['password'].hasError('hasNumber')) ? 'check-mark-red' : 'check-mark-green'">
+                <small>✓</small>
+              </td>
+              <td mat-cell>
+                <small class="task-padding">At least 1 number</small>
+              </td>
+            </tr>
+          </table>
+        </mat-card>
+        <small *ngIf="(registrationForm.controls['password'].hasError('required') && displayUsernameRequired === true)"
+                class="text-error">Password is required!</small>
         <br>
         <mat-form-field>
           <mat-label>Repeat password</mat-label>
@@ -34,7 +78,7 @@
                 formControlName="rePassword">
         </mat-form-field>
         <small *ngIf="registrationForm.errors?.match"
-               class="text-error">Passwords do not match!</small>
+                class="text-error">Passwords do not match!</small>
         <br>
         <mat-form-field>
           <mat-label>E-mail</mat-label>

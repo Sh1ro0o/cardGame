@@ -3,8 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { User } from './interface/user';
 import { Observable, throwError } from 'rxjs';
-import { passwordRepeatMatchValidator } from './shared/validators/password-repeat.validator';
 import { RegistrationService } from './registration.service';
+import { passwordContainsLowerCaseValidator } from './shared/validators/password-contains-lowercase';
+import { passwordRepeatMatchValidator } from './shared/validators/password-repeat.validator';
+import { passwordContainsUpperCaseValidator } from './shared/validators/password-contains-uppercase';
+import { passwordContainsNumberValidator } from './shared/validators/password-contains-number';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +20,12 @@ export class AppComponent implements OnInit {
   title = 'IdentitiesApp';
   passwordType = "password";
   passwordStatus = "Show"
+
+  //error logic
+  public displayPasswordTasks = false;
+  public displayUsernameRequired = false;
+  public displayPasswordRequired = false;
+  public displayEmailRequired = false;
 
   //form
   registrationForm : FormGroup;
@@ -34,7 +43,8 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.registrationForm = this.fb.group({
       username: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(48)]],
+      password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(48),
+                      passwordContainsUpperCaseValidator, passwordContainsLowerCaseValidator, passwordContainsNumberValidator]],
       rePassword: ['', [Validators.required]],
       email: ['', [Validators.required]],
     },
@@ -69,6 +79,14 @@ export class AppComponent implements OnInit {
       this.passwordType = "password";
       this.passwordStatus = "Show";
       console.log(this.passwordStatus);
+    }
+  }
+
+  onPasswordChange(textValue: string): void {
+    if (textValue.length >= 1) {
+      this.displayPasswordTasks = true;
+    } else {
+      this.displayPasswordTasks = false;
     }
   }
 }
