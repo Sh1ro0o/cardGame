@@ -69,20 +69,28 @@ export class AppComponent implements OnInit {
   }
 
   onSubmit() : void {
-    console.warn(this.registrationForm.value);
+    if(this.registrationForm.valid) {
+      console.warn(this.registrationForm.value);
 
-    let registeredUser = new User(this.registrationForm.get('username').value,
-    this.registrationForm.get('password').value,
-    this.registrationForm.get('rePassword').value,
-    this.registrationForm.get('email').value);
+      let registeredUser = new User(this.registrationForm.get('username').value,
+      this.registrationForm.get('password').value,
+      this.registrationForm.get('rePassword').value,
+      this.registrationForm.get('email').value);
 
-    //console logs created class User
-    console.log(registeredUser);
+      //console logs created class User
+      console.log(registeredUser);
 
-    //sends with post
-    this._registrationService.addUser(registeredUser).subscribe((user) => {
-      console.log(user);
-    })
+      //sends with post
+      this._registrationService.addUser(registeredUser).subscribe((user) => {
+        console.log(user);
+      })
+    }
+    else {
+      this.displayUsernameRequired = true;
+      this.displayPasswordRequired = true;
+      this.displayEmailRequired = true;
+      this.displayEmailInvalid = true;
+    }
   }
 
   togglePasswordVisibility() : void{
