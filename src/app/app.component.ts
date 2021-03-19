@@ -2,7 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { User } from './interface/user';
-import { Observable, throwError } from 'rxjs';
+import { Observable, Subject, throwError } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+import { distinctUntilChanged } from 'rxjs/operators';
 import { RegistrationService } from './registration.service';
 import { passwordContainsLowerCaseValidator } from './shared/validators/password-contains-lowercase';
 import { passwordRepeatMatchValidator } from './shared/validators/password-repeat.validator';
@@ -26,6 +28,10 @@ export class AppComponent implements OnInit {
   public displayUsernameRequired = false;
   public displayPasswordRequired = false;
   public displayEmailRequired = false;
+  public displayEmailInvalid = false;
+
+  //observable
+  private emailSub$ = new Subject<string>();
 
   //form
   registrationForm : FormGroup;
@@ -33,6 +39,7 @@ export class AppComponent implements OnInit {
   //form group
   //TO-DO: validatorji (create validator that compares password with repassword, create validator that checks email structure)
   //TO-DO: api call to check if email is valid
+  //TO-DO: onSubmit() only submits if all Validators pass
 
   constructor(
     private fb : FormBuilder,
@@ -46,10 +53,19 @@ export class AppComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(48),
                       passwordContainsUpperCaseValidator, passwordContainsLowerCaseValidator, passwordContainsNumberValidator]],
       rePassword: ['', [Validators.required]],
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
     },
     { validator: [passwordRepeatMatchValidator]}
     )
+
+    //debounce for email input validation
+    this.emailSub$.pipe(
+      debounceTime(500),
+      distinctUntilChanged()
+    ).subscribe(() => {
+      console.log("overhere!")
+      this.displayEmailInvalid = true;
+    });
   }
 
   onSubmit() : void {
@@ -73,12 +89,10 @@ export class AppComponent implements OnInit {
     if(this.passwordType === "password") {
       this.passwordType = "text";
       this.passwordStatus = "Hide";
-      console.log(this.passwordStatus);
     }
     else {
       this.passwordType = "password";
       this.passwordStatus = "Show";
-      console.log(this.passwordStatus);
     }
   }
 
@@ -88,5 +102,9 @@ export class AppComponent implements OnInit {
     } else {
       this.displayPasswordTasks = false;
     }
+  }
+
+  checkEmail(textValue: string): void {
+    this.emailSub$.next(textValue)
   }
 }

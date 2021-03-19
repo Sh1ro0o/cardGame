@@ -86,10 +86,13 @@
                 type="email"
                 placeholder="E-mail"
                 formControlName="email"
+                (keyup)="checkEmail($event.target.value)"
                 (blur)="displayEmailRequired = true">
         </mat-form-field>
         <br>
-        <small *ngIf="(registrationForm.controls['password'].hasError('required') && displayEmailRequired === true)"
+        <small *ngIf="(registrationForm.controls['email'].hasError('email') && displayEmailInvalid === true)"
+                class="text-error">Email is invalid!</small>
+        <small *ngIf="(registrationForm.controls['email'].hasError('required') && displayEmailRequired === true)"
                 class="text-error">Email is required!</small>
         <mat-card-actions>
           <button mat-raised-button color="primary" type="submit">Sign up</button>
