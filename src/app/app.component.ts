@@ -37,10 +37,6 @@ export class AppComponent implements OnInit {
   registrationForm : FormGroup;
 
   //form group
-  //TO-DO: validatorji (create validator that compares password with repassword, create validator that checks email structure)
-  //TO-DO: api call to check if email is valid
-  //TO-DO: onSubmit() only submits if all Validators pass
-
   constructor(
     private fb : FormBuilder,
     private _registrationService : RegistrationService) {
