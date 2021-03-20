@@ -3,8 +3,10 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.1.
 
 ## Development server
+This frontend communicates with backend located inside the backend folder.
+Run `npm start` that will launch the server.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `npm start` that will launch a dev server with script: `ng serve --proxy-config proxy.conf.json` or just run the `ng serve --proxy-config proxy.conf.json` by yourself. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 
